@@ -16,7 +16,8 @@ const IMG = styled.img((props) => {
 const IMG_CONTAINER = styled.div((props) => {
   return buildVariants(props)
     .css({
-      height: 'tenb-space-64',
+      height: 'tenb-space-48',
+      width: 'tenb-space-32',
     })
     .end();
 });

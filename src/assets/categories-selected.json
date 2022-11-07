@@ -1,5 +1,4 @@
-export const HEROES_API = "https://akabab.github.io/superhero-api/api/";
-export const SELECTED_PUBLISHERS = [
+[
   "ABC Studios",
   "Batman II",
   "Dark Horse Comics",

@@ -32,6 +32,14 @@ const PageHeroes = (props: IPageWelcomeProps) => {
     .slice()
     .sort();
 
+  const selectedHeroes = storePageHeroes.heroes.filter(
+    ({ biography: { publisher } }) => {
+      return selectedPublishers.length === 0
+        ? true
+        : selectedPublishers.includes(publisher);
+    }
+  );
+
   useEffect(() => {
     storePageHeroes.fetchSuperHeroes();
 
@@ -51,7 +59,7 @@ const PageHeroes = (props: IPageWelcomeProps) => {
   return (
     <>
       <Label variant="Heading1">Super Heroes</Label>
-      <div>Pick Franchise!</div>
+      <div>Pick some franchises:</div>
       <div>
         <select
           value={selectedPublishers}
@@ -68,9 +76,9 @@ const PageHeroes = (props: IPageWelcomeProps) => {
         {JSON.stringify(selectedPublishers)}
       </div>
       <StyledContainerFlex name="HeroesPage" flexGap="tenb-space-4" fullWidth>
-        {storePageHeroes.heroes.map((hero) => {
-          return <Hero hero={hero} key={hero.id} />;
-        })}
+        {selectedHeroes.map((hero) => (
+          <Hero key={hero.id} hero={hero} />
+        ))}
       </StyledContainerFlex>
     </>
   );

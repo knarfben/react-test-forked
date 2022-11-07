@@ -2,7 +2,7 @@ import StoreRoot from "../../../stores/StoreRoot";
 import StoreBase from "../../../stores/StoreRoot/StoreBase";
 import { IStoreOptions } from "../../../stores/types";
 import { action, computed, makeObservable, observable } from "mobx";
-import { HEROES_API } from "../../../constants";
+import { HEROES_API, SELECTED_PUBLISHERS } from "../../../constants";
 import IHero from "../../../models/hero.model";
 import { Maybe } from "../../../types";
 
@@ -28,7 +28,11 @@ export default class StorePageHeroes extends StoreBase {
     if (response.ok) {
       const heroes: IHero[] = await response.json();
 
-      this.setHeroes(heroes.slice(0, 100));
+      // Filter out heroes that are not from the selected publishers
+      const filteredHeroes = heroes.filter((hero) =>
+        SELECTED_PUBLISHERS.includes(hero.biography.publisher)
+      );
+      this.setHeroes(filteredHeroes);
     }
   }
 
