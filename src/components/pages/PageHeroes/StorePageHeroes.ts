@@ -28,7 +28,7 @@ export default class StorePageHeroes extends StoreBase {
     if (response.ok) {
       const heroes: IHero[] = await response.json();
 
-      this.setHeroes(heroes);
+      this.setHeroes(heroes.slice(0, 100));
     }
   }
 

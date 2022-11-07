@@ -1,3 +1,4 @@
+import { divide } from 'lodash';
 import styled from 'styled-components';
 import { useUrlBuilder } from '../../../../hooks/useUrlBuilder';
 import { buildVariants } from '../../../../libs/react-helpers/buildVariants';
@@ -10,14 +11,14 @@ export interface IHeroProps extends ITagProperties<HTMLTableRowElement> {
   hero: IHero;
 }
 
-const TR = styled.tr((props) => {
+const IMG = styled.img((props) => {
   return buildVariants(props).css({}).end();
 });
 
-const TD = styled.td((props) => {
+const IMG_CONTAINER = styled.div((props) => {
   return buildVariants(props)
     .css({
-      paddingRight: themes.white.sizes['tenb-space-8'],
+      height: 'tenb-space-64',
     })
     .end();
 });
@@ -29,13 +30,11 @@ export function Hero(props: IHeroProps) {
   const { urlBuilder } = useUrlBuilder();
 
   return (
-    <TR onClick={handleShowHeroDetailsOnClick(urlBuilder)(props.hero)}>
-      <TD>{props.hero.name}</TD>
-      <TD>{props.hero.biography.publisher}</TD>
-      <td>
-        <img src={props.hero.images.xs} />
-      </td>
-    </TR>
+    <IMG_CONTAINER
+      onClick={handleShowHeroDetailsOnClick(urlBuilder)(props.hero)}
+    >
+      <IMG alt={props.hero.name} src={props.hero.images.xs} />
+    </IMG_CONTAINER>
   );
 }
 

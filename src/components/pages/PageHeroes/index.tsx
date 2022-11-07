@@ -57,28 +57,20 @@ const PageHeroes = (props: IPageWelcomeProps) => {
     : storePageHeroes.heroes;
 
   return (
-    <StyledContainerFlex
-      name="HeroesPage"
-      flexDirection="column"
-      flexGap="tenb-space-32"
-      fullWidth
-      fullHeight
-    >
+    <>
       <button onClick={handleClick}>toggle publisher mode</button>
       <Label variant="Heading1">Super Heroes</Label>
-
-      <Table>
-        <tbody>
-          <tr>
-            <Header>Hero name</Header>
-            <Header>Publisher</Header>
-          </tr>
-          {heroes.map((hero) => {
-            return <Hero hero={hero} key={hero.id} />;
-          })}
-        </tbody>
-      </Table>
-    </StyledContainerFlex>
+      <StyledContainerFlex
+        name="HeroesPage"
+        // flexDirection="column"
+        flexGap="tenb-space-4"
+        fullWidth
+      >
+        {heroes.map((hero) => {
+          return <Hero hero={hero} key={hero.id} />;
+        })}
+      </StyledContainerFlex>
+    </>
   );
 };
 
