@@ -1,10 +1,8 @@
-import { divide } from 'lodash';
 import styled from 'styled-components';
 import { useUrlBuilder } from '../../../../hooks/useUrlBuilder';
 import { buildVariants } from '../../../../libs/react-helpers/buildVariants';
 import { ITagProperties } from '../../../../libs/react-helpers/forwardProps/types';
 import IHero from '../../../../models/hero.model';
-import { themes } from '../../../../styles/themes';
 import { handleShowHeroDetailsOnClick } from '../handlers';
 
 export interface IHeroProps extends ITagProperties<HTMLTableRowElement> {

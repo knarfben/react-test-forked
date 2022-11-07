@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+import { ChangeEventHandler, SyntheticEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStores } from '../../../hooks/useStores';
 import { buildVariants } from '../../../libs/react-helpers/buildVariants';
@@ -13,29 +13,24 @@ const StyledContainerFlex = styled(ContainerFlex)((props) => {
   return buildVariants(props).css({}).end();
 });
 
-const Table = styled.table((props) => {
-  return buildVariants(props)
-    .css({
-      overflowY: 'auto',
-      display: 'flex',
-    })
-    .end();
-});
-
-const Header = styled.td((props) => {
-  return buildVariants(props)
-    .css({
-      fontWeight: 'bold',
-      backgroundColor: 'crimson',
-    })
-    .end();
-});
 /**
  * Heroes page.
  */
 const PageHeroes = (props: IPageWelcomeProps) => {
   const { storePageHeroes } = useStores();
-  const [publisher, setPublisher] = useState(false);
+  const [selectedPublishers, setSelectedPublishers] = useState<string[]>([]);
+
+  // extract unique publishers from available heroes
+  // extract unique publishers from available heroes
+  const availablePublishers = storePageHeroes.heroes
+    .reduce((acc, { biography: { publisher } }) => {
+      if (!acc.includes(publisher)) {
+        acc.push(publisher);
+      }
+      return acc;
+    }, [] as string[])
+    .slice()
+    .sort();
 
   useEffect(() => {
     storePageHeroes.fetchSuperHeroes();
@@ -44,29 +39,36 @@ const PageHeroes = (props: IPageWelcomeProps) => {
       storePageHeroes.reset();
     };
   }, [storePageHeroes]);
-  const handleClick = () => {
-    setPublisher(!publisher);
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.currentTarget.value;
+    const selected = selectedPublishers.includes(value)
+      ? selectedPublishers.filter((publisher) => publisher !== value)
+      : [...selectedPublishers, value];
+
+    setSelectedPublishers(selected);
   };
-
-  const heroes = publisher
-    ? storePageHeroes.heroes
-        .slice()
-        .sort((h1, h2) =>
-          h1.biography.publisher < h2.biography.publisher ? -1 : 1
-        )
-    : storePageHeroes.heroes;
-
   return (
     <>
-      <button onClick={handleClick}>toggle publisher mode</button>
       <Label variant="Heading1">Super Heroes</Label>
-      <StyledContainerFlex
-        name="HeroesPage"
-        // flexDirection="column"
-        flexGap="tenb-space-4"
-        fullWidth
-      >
-        {heroes.map((hero) => {
+      <div>Pick Franchise!</div>
+      <div>
+        <select
+          value={selectedPublishers}
+          name="publishers"
+          onChange={handleChange}
+          multiple
+        >
+          {availablePublishers.map((publisher, idx) => (
+            <option key={idx} value={publisher}>
+              {publisher}
+            </option>
+          ))}
+        </select>
+        {JSON.stringify(selectedPublishers)}
+      </div>
+      <StyledContainerFlex name="HeroesPage" flexGap="tenb-space-4" fullWidth>
+        {storePageHeroes.heroes.map((hero) => {
           return <Hero hero={hero} key={hero.id} />;
         })}
       </StyledContainerFlex>

@@ -1,17 +1,17 @@
-import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
-import styled from "styled-components";
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
+import styled from 'styled-components';
 import {
   VictoryArea,
   VictoryChart,
   VictoryPolarAxis,
-  VictoryTheme
-} from "victory";
-import { useStores } from "../../../hooks/useStores";
-import { buildVariants } from "../../../libs/react-helpers/buildVariants";
-import ContainerFlex from "../../common/ContainerFlex";
-import Label from "../../common/Label";
-import { handleHeroOnLoad } from "../PageHeroes/handlers";
+  VictoryTheme,
+} from 'victory';
+import { useStores } from '../../../hooks/useStores';
+import { buildVariants } from '../../../libs/react-helpers/buildVariants';
+import ContainerFlex from '../../common/ContainerFlex';
+import Label from '../../common/Label';
+import { handleHeroOnLoad } from '../PageHeroes/handlers';
 
 export interface IPageHeroDetailsProps {}
 
@@ -22,7 +22,7 @@ const StyledContainerFlex = styled(ContainerFlex)((props) => {
 const StyledDiv = styled.div((props) => {
   return buildVariants(props)
     .css({
-      width: 300
+      width: 300,
     })
     .end();
 });
@@ -43,16 +43,18 @@ const PageHeroDetails = (props: IPageHeroDetailsProps) => {
   return (
     <StyledContainerFlex
       name="HeroDetailsPage"
-      flexDirection="column"
+      // flexDirection="column"
       flexGap="tenb-space-32"
       fullWidth
       fullHeight
     >
       <Label variant="Heading1">{storePageHeroDetails.hero?.name}</Label>
-      <img
-        style={{ width: "50px" }}
-        src={storePageHeroDetails.hero?.images.xs}
-      />
+      <div style={{ height: '70px' }}>
+        <img
+          src={storePageHeroDetails.hero?.images.sm}
+          alt={storePageHeroDetails.hero?.name}
+        />
+      </div>
 
       <Label>Skills</Label>
       <StyledDiv>
