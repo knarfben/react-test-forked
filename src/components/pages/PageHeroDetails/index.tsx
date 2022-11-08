@@ -45,12 +45,14 @@ const PageHeroDetails = (props: IPageHeroDetailsProps) => {
       name="HeroDetailsPage"
       // flexDirection="column"
       flexGap="tenb-space-32"
+      flexAlignItems="center"
       fullWidth
       fullHeight
     >
       <Label variant="Heading1">{storePageHeroDetails.hero?.name}</Label>
-      <div style={{ height: '70px' }}>
+      <div>
         <img
+          style={{ borderRadius: '5px' }}
           src={storePageHeroDetails.hero?.images.sm}
           alt={storePageHeroDetails.hero?.name}
         />

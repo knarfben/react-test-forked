@@ -9,7 +9,7 @@ export interface IHeroProps extends ITagProperties<HTMLTableRowElement> {
   hero: IHero;
 }
 
-const IMG = styled.img((props) => {
+const StyledImageHeroGrid = styled.img((props) => {
   return buildVariants(props)
     .css({
       maxWidth: '100%',
@@ -25,7 +25,7 @@ const IMG = styled.img((props) => {
     .end();
 });
 
-const IMG_CONTAINER = styled.div((props) => {
+const StyledImageHeroInGrid = styled.div((props) => {
   return buildVariants(props)
     .css({
       height: '48px',
@@ -112,12 +112,12 @@ export function Hero(props: IHeroProps) {
   const { urlBuilder } = useUrlBuilder();
 
   return (
-    <IMG_CONTAINER
+    <StyledImageHeroInGrid
       // style={{ backgroundImage: `url(${props.hero.images.sm})` }}
       onClick={handleShowHeroDetailsOnClick(urlBuilder)(props.hero)}
     >
-      <IMG alt={props.hero.name} src={props.hero.images.sm} />
-    </IMG_CONTAINER>
+      <StyledImageHeroGrid alt={props.hero.name} src={props.hero.images.sm} />
+    </StyledImageHeroInGrid>
   );
 }
 
