@@ -1,4 +1,3 @@
-import { IHeroDetailsRouteDefinition } from "./../../Root/Routes";
 import { UrlBuilderClient } from "../../../libs/UrlBuilder/types";
 import IHero from "../../../models/hero.model";
 import { AppRouteName } from "../../Root/Routes";
