@@ -22,12 +22,14 @@ const Div = styled.div<IContainerFlexProps>((props) => {
       flexGrow: props.flexGrow,
       flexDirection: props.flexDirection,
       alignItems: props.flexAlignItems,
-      justifyContent: props.flexJustifyContent,
+      justifyContent: 'center',
       flexWrap: getContainerFlexWrap(props),
       gap: props.flexGap && themes.white.sizes[props.flexGap],
       height: props.height,
-      backgroundColor: themes.white.colors.pds['tenb-colors-background-page'],
+      backgroundColor: themes.white.colors.pds['tenb-colors-black'],
       padding: themes.white.sizes['tenb-space-16'],
+      //   background: black;
+      borderRadius: '5px',
 
       // Size
       ...(props.fullHeight ? { overflow: 'scroll' } : {}),

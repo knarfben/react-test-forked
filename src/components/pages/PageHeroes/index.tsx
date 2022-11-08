@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStores } from '../../../hooks/useStores';
 import { buildVariants } from '../../../libs/react-helpers/buildVariants';
@@ -58,20 +58,28 @@ const PageHeroes = (props: IPageWelcomeProps) => {
     setSelectedPublishers(selected);
   };
   return (
-    <>
-      <Label variant="Heading1">Super Heroes</Label>
+    <div>
+      <Label variant="Heading1">Heroes&Villains</Label>
       <FranchiseSelector
         availablePublishers={availablePublishers}
         selectedPublishers={selectedPublishers}
         setSelectedPublishers={setSelectedPublishers}
         handleChange={handleChange}
       />
-      <StyledContainerFlex name="HeroesPage" flexGap="tenb-space-4" fullWidth>
-        {selectedHeroes.map((hero) => (
-          <Hero key={hero.id} hero={hero} />
-        ))}
-      </StyledContainerFlex>
-    </>
+      <Suspense
+        fallback={
+          <div
+            style={{ backgroundColor: 'red', width: '100px', height: '100px' }}
+          ></div>
+        }
+      >
+        <StyledContainerFlex name="HeroesPage" flexGap="tenb-space-4" fullWidth>
+          {selectedHeroes.map((hero) => (
+            <Hero key={hero.id} hero={hero} />
+          ))}
+        </StyledContainerFlex>
+      </Suspense>
+    </div>
   );
 };
 
