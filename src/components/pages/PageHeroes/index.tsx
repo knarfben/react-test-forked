@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStores } from '../../../hooks/useStores';
 import { buildVariants } from '../../../libs/react-helpers/buildVariants';
@@ -11,7 +11,31 @@ import Hero from './components/Hero';
 export interface IPageWelcomeProps {}
 
 const StyledContainerFlex = styled(ContainerFlex)((props) => {
-  return buildVariants(props).css({ display: 'inline-flex' }).end();
+  return buildVariants(props)
+    .css({
+      // '@keyframes zoom': {
+      //   '0%': {
+      //     transform: 'scale(1)',
+      //   },
+      //   '100%': {
+      //     transform: 'scale(1.5)',
+      //   },
+      // },
+    })
+    .css({
+      // display: 'inline-flex',
+      // position: 'fixed',
+      // top: '50%',
+      // left: '50%',
+      // height: '1px',
+      // width: '1px',
+      // backgroundColor: '#fff',
+      // borderRadius: '50%',
+      // boxShadow:
+      //   '-24vw -44vh 2px 2px #fff,38vw -4vh 0px 0px #fff,-20vw -48vh 1px 2px #fff,-39vw 38vh 3px 1px #fff,-42vw -11vh 0px 3px #fff,12vw 15vh 3px 3px #fff,42vw 6vh 3px 2px #fff,-8vw 9vh 0px 2px #fff,34vw -38vh 1px 0px #fff,-17vw 45vh 3px 1px #fff,22vw -36vh 3px 2px #fff,-42vw 1vh 1px 0px #fff',
+      // animation: 'zoom 10s alternate infinite',
+    })
+    .end();
 });
 
 /**
@@ -58,28 +82,30 @@ const PageHeroes = (props: IPageWelcomeProps) => {
     setSelectedPublishers(selected);
   };
   return (
-    <div>
-      <Label variant="Heading1">Heroes&Villains</Label>
-      <FranchiseSelector
-        availablePublishers={availablePublishers}
-        selectedPublishers={selectedPublishers}
-        setSelectedPublishers={setSelectedPublishers}
-        handleChange={handleChange}
-      />
-      <Suspense
-        fallback={
-          <div
-            style={{ backgroundColor: 'red', width: '100px', height: '100px' }}
-          ></div>
-        }
+    <>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          gap: '50px',
+          padding: '10px',
+          alignItems: 'center',
+        }}
       >
-        <StyledContainerFlex name="HeroesPage" flexGap="tenb-space-4" fullWidth>
-          {selectedHeroes.map((hero) => (
-            <Hero key={hero.id} hero={hero} />
-          ))}
-        </StyledContainerFlex>
-      </Suspense>
-    </div>
+        <Label variant="Heading1">Heroes & Villains</Label>
+        <FranchiseSelector
+          availablePublishers={availablePublishers}
+          selectedPublishers={selectedPublishers}
+          setSelectedPublishers={setSelectedPublishers}
+          handleChange={handleChange}
+        />
+      </div>
+      <StyledContainerFlex name="HeroesPage" flexGap="tenb-space-4" fullWidth>
+        {selectedHeroes.map((hero) => (
+          <Hero key={hero.id} hero={hero} />
+        ))}
+      </StyledContainerFlex>
+    </>
   );
 };
 

@@ -26,9 +26,17 @@ const FranchiseLogos = ({
     removeFranchise(franchise);
   };
   return (
-    <div style={{ display: 'inline-flex' }}>
+    <div
+      style={{
+        display: 'inline-flex',
+        gap: '10px',
+        alignItems: 'center',
+        padding: '0 10px',
+        border: 'solid 2px transparent',
+      }}
+    >
       {selectedFranchises.map((publisher) => (
-        <div key={publisher} style={{ height: '16px' }}>
+        <div key={publisher} style={{}}>
           <img
             key={publisher}
             src={getFranchiseLogo(publisher)}
@@ -62,9 +70,9 @@ const FranchiseSelector = ({
   };
 
   return (
-    <div style={{ display: 'inline-block' }}>
+    <div style={{}}>
       <div>Pick some franchises:</div>
-      <div style={{ display: 'inline-block' }}>
+      <div style={{ display: 'inline-flex' }}>
         <select
           value={selectedPublishers}
           name="publishers"
