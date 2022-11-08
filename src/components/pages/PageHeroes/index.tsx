@@ -1,16 +1,17 @@
 import { observer } from 'mobx-react-lite';
-import { ChangeEventHandler, SyntheticEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStores } from '../../../hooks/useStores';
 import { buildVariants } from '../../../libs/react-helpers/buildVariants';
 import ContainerFlex from '../../common/ContainerFlex';
 import Label from '../../common/Label';
+import FranchiseSelector from './components/FranchiseSelector';
 import Hero from './components/Hero';
 
 export interface IPageWelcomeProps {}
 
 const StyledContainerFlex = styled(ContainerFlex)((props) => {
-  return buildVariants(props).css({}).end();
+  return buildVariants(props).css({ display: 'inline-flex' }).end();
 });
 
 /**
@@ -59,22 +60,12 @@ const PageHeroes = (props: IPageWelcomeProps) => {
   return (
     <>
       <Label variant="Heading1">Super Heroes</Label>
-      <div>Pick some franchises:</div>
-      <div>
-        <select
-          value={selectedPublishers}
-          name="publishers"
-          onChange={handleChange}
-          multiple
-        >
-          {availablePublishers.map((publisher, idx) => (
-            <option key={idx} value={publisher}>
-              {publisher}
-            </option>
-          ))}
-        </select>
-        {JSON.stringify(selectedPublishers)}
-      </div>
+      <FranchiseSelector
+        availablePublishers={availablePublishers}
+        selectedPublishers={selectedPublishers}
+        setSelectedPublishers={setSelectedPublishers}
+        handleChange={handleChange}
+      />
       <StyledContainerFlex name="HeroesPage" flexGap="tenb-space-4" fullWidth>
         {selectedHeroes.map((hero) => (
           <Hero key={hero.id} hero={hero} />
