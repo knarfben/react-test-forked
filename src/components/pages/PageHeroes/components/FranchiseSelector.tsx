@@ -1,3 +1,23 @@
+import styled from 'styled-components';
+import { buildVariants } from '../../../../libs/react-helpers/buildVariants';
+
+const StyledFranchiseSelect = styled.select((props) => {
+  return buildVariants(props)
+    .css({
+      overflowY: 'auto',
+      padding: '10px',
+      lineHeight: '2',
+      border: 'none',
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: 'black',
+      borderRadius: '5px',
+      color: 'white',
+      fontFamily: 'monospace',
+    })
+    .end();
+});
+
 const getFranchiseLogo = (franchise: string) => {
   switch (franchise) {
     case 'Dark Horse Comics':
@@ -71,12 +91,15 @@ const FranchiseSelector = ({
 
   return (
     <div style={{}}>
-      <div>Pick some franchises:</div>
+      <div style={{ marginBottom: '5px', marginLeft: '9px' }}>
+        Pick your favorite franchise!
+      </div>
       <div style={{ display: 'inline-flex' }}>
-        <select
+        <StyledFranchiseSelect
           value={selectedPublishers}
           name="publishers"
           onChange={handleChange}
+          size={availablePublishers.length}
           multiple
         >
           {availablePublishers.map((publisher, idx) => (
@@ -84,7 +107,7 @@ const FranchiseSelector = ({
               {publisher}
             </option>
           ))}
-        </select>
+        </StyledFranchiseSelect>
         <FranchiseLogos
           selectedFranchises={selectedPublishers}
           removeFranchise={removeFranchise}
